@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>超级跳跃 · 像素冒险</title>
+<meta name="description" content="一个纯前端、零依赖的横版像素跳跃小游戏，三关闯关、金币、问号块与能量果。" />
+<style>
+  html,body{margin:0;height:100%;background:#0b1120;overflow:hidden;
+    font-family:"Segoe UI",system-ui,-apple-system,"PingFang SC",sans-serif;
+    -webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;}
+  #wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 50% 25%,#22355e,#080d18 72%);}
+  canvas{display:block;image-rendering:pixelated;width:min(100vw,calc(100vh * 1.6));height:auto;
+    border-radius:12px;box-shadow:0 0 0 3px #1b2a4a,0 18px 60px rgba(0,0,0,.6);}
+  #touch{position:fixed;left:0;right:0;bottom:0;display:none;justify-content:space-between;
+    align-items:flex-end;padding:14px 18px 22px;pointer-events:none;z-index:5;}
+  #touch .grp{display:flex;gap:14px;pointer-events:auto;}
+  #touch button{width:68px;height:68px;border-radius:50%;border:2px solid rgba(255,255,255,.26);
+    background:rgba(255,255,255,.12);color:#fff;font-size:20px;font-weight:700;
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
+  #touch button:active{background:rgba(255,255,255,.32);}
+  @media (pointer:coarse){ #touch{display:flex;} }
+</style>
+</head>
+<body>
+<div id="wrap"><canvas id="game"></canvas></div>
+<div id="touch">
+  <div class="grp"><button data-k="left" aria-label="左">◀</button><button data-k="right" aria-label="右">▶</button></div>
+  <div class="grp"><button data-k="jump" aria-label="跳">跳</button></div>
+</div>
+<script src="config.js"></script>
+<script src="levels.js"></script>
+<script src="engine.js"></script>
+<script src="render.js"></script>
+</body>
+</html>
