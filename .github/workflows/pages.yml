@@ -22,11 +22,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Enable GitHub Pages (ignore if already enabled)
+        run: |
+          set +e
+          code=$(curl -s -o /tmp/resp.json -w '%{http_code}' -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${{ github.repository }}/pages" \
+            -d '{"build_type":"workflow"}')
+          echo "pages_create_http=$code"
+          cat /tmp/resp.json || true
+
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
+
       - id: deployment
         uses: actions/deploy-pages@v4
